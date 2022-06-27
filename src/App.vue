@@ -12,14 +12,20 @@
                 d="M957.527053 409.325549c-5.478781-23.600511-25.946952-40.752146-60.812017-50.986231-13.866822-4.080945-28.360931 3.856841-32.42141 17.703197-4.060479 13.846356 3.867074 28.355815 17.708314 32.416294 21.097504 6.193049 24.589025 12.619412 24.620747 12.621459 1.638313 21.585621-111.772666 105.686041-377.078101 167.325913-265.38116 61.669548-404.239717 36.129872-412.218436 16.172331-0.005117-0.081864 0.341784-8.866948 21.360494-26.549679 11.040451-9.28548 12.458753-25.76378 3.173273-36.804231-9.290597-11.050684-25.76378-12.479219-36.804231-3.173273-31.544437 26.539446-44.538379 52.884464-38.624692 78.291111 8.885368 38.231743 55.085596 58.750055 140.971685 62.454424 0.314155 0.663102 0.64366 1.321088 1.00898 1.970888 61.047378 108.574834 176.284959 176.030156 300.736389 176.030156 183.829795 0 334.733691-143.290497 344.29751-326.523705C932.524612 488.061798 966.605825 448.414823 957.527053 409.325549zM496.471328 793.812387l24.594141-20.357654 43.547819-5.030573c8.535397-0.989537 16.039301-6.101975 20.075221-13.69286l9.402137-17.703197 8.90788 18.294668-6.009877 24.898063c-27.662013 9.018398-57.192583 13.885242-87.840604 13.885242C504.907465 794.107099 500.682233 794.002722 496.471328 793.812387zM656.68424 752.652965c0.049119-4.03899-0.816598-8.06263-2.607384-11.746532l-35.471886-72.913637c-4.300956-8.836249-13.198603-14.509459-23.024389-14.69263-10.06524-0.061398-18.921955 5.183046-23.533996 13.866822l-27.059286 50.935066-37.604456 4.347005c-5.02034 0.581238-9.764388 2.602268-13.662161 5.825682l-57.149605 47.303352c-2.540869 2.101871-4.576225 4.587482-6.102998 7.300266-59.482743-17.325597-112.223944-53.952796-149.262512-104.638175 76.699869-3.872191 167.07725-17.317411 260.160251-38.938847 90.823542-21.106714 175.904289-48.055482 245.520833-77.534887C772.558317 642.825604 723.913411 711.457728 656.68424 752.652965z"
                 p-id="2627"></path>
           </svg>
-          <span class="layout-vertcal">我的网址导航</span>
+          <span class="layout-vertcal">
+            {{ PROJECT_NAME }}
+          </span>
         </div>
         <div class="header-avatar">
           <a-avatar :size="50" src="https://joeschmoe.io/api/v1/random" style="background-color: #87d068"/>
         </div>
       </div>
     </div>
-    <a-card :tab-list="tabListNoTitle" :active-tab-key="noTitleKey" @tabChange="key => onTabChange(key, key)" ></a-card>
+    <a-card
+        :tab-list="tabListNoTitle"
+        :active-tab-key="routeKeys"
+        @tabChange="key => onTabChange(key, key)">
+    </a-card>
   </div>
   <div class="controller">
     <router-view/>
@@ -37,32 +43,38 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {ref, computed} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
+import { PROJECT_NAME } from '@/config/setting';
 
 const router = useRouter();
-
-const activeKey = ref(useRoute().path);
 
 const tabListNoTitle = [
   {key: '/', tab: '网站导航',},
   {key: '/tools', tab: '我的工具',}
 ];
 
+// eslint-disable-next-line no-unused-vars
 const key = ref('/');
 const noTitleKey = ref('/');
 
-const onTabChange = (value, type) => {
-  console.log(value, type);
-
-  if (type === '/') {
-    noTitleKey.value = value;
-    router.push(type)
-  } else if (type === '/tools') {
-    noTitleKey.value = value;
-    router.push(type)
+/**
+ * 计算属性 - 计算路由刷新（tabs 切换）
+ * @type {ComputedRef<unknown>}
+ */
+const routeKeys = computed(() => {
+  const path = useRoute().path;
+  if (path.includes('tools')) {
+    return '/tools';
   }
+  return noTitleKey;
+})
+
+const onTabChange = (value, type) => {
+  noTitleKey.value = value;
+  router.push(type)
 };
+
 </script>
 
 <script>

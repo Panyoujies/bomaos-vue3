@@ -28,7 +28,7 @@ const routes = [
                 path: 'base64',
                 name: 'base64',
                 component: () => import('@/views/tools/base64/index'),
-                meta: {title: 'base64'},
+                meta: {title: 'Base64 加密解密'},
             },
             {
                 path: 'text',
@@ -69,7 +69,6 @@ const router = createRouter({
  * 前置路由守卫
  */
 router.beforeEach(async (to, from) => {
-    console.log(to.path)
     if (!from.path.includes(REDIRECT_PATH)) {
         Nprogress.start();
     }

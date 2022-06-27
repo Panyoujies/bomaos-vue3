@@ -5,10 +5,10 @@ export const TOKEN_STORE_NAME = 'access_token';
 export const TOKEN_HEADER_NAME = 'Authorization';
 
 // 接口地址
-export const API_BASE_URL = 'http://zlianyun.cn/api';
+export const API_BASE_URL = 'https://zlianyun.cn/api';
 
 // 项目名称
-export const PROJECT_NAME = '值联网址导航';
+export const PROJECT_NAME = '值联在线工具';
 
 // 首页路径, 为空则取第一个菜单的地址
 export const HOME_PATH = undefined;
@@ -20,4 +20,4 @@ export const LAYOUT_PATH = '/';
 export const REDIRECT_PATH = '/redirect';
 
 // 不需要登录的路由
-export const WHITE_LIST = ['/tools/base64', '/tools/text', '/tools/2fa', '/login', '/forget'];
+export const WHITE_LIST = ['/login', '/forget'];

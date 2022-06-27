@@ -48,3 +48,11 @@ a:hover {
 .ant-card-head .ant-tabs-top {
     margin-bottom: auto;
 }
+
+.ant-card-head {
+    padding: 0 15px;
+}
+
+.ant-card {
+    border-radius: 5px;
+}
