@@ -1,0 +1,42 @@
+body {
+    background-color: #f4f4f4;
+}
+
+html, body {
+    height: auto;
+    width: auto;
+}
+
+.controller {
+    margin: 0 auto;
+    width: 800px;
+}
+
+.resource-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgb(85, 85, 85);
+}
+
+.ant-card-grid:hover .resource-name {
+    color: #1890ff;
+}
+
+a:hover {
+    color: #40a9ff;
+}
+
+.ant-card .ant-card-body {
+    padding: 0!important;
+}
+
+.ant-layout-footer {
+    background: transparent;
+}
+
+.ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+    margin: 0;
+}
