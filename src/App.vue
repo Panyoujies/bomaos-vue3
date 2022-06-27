@@ -19,21 +19,7 @@
         </div>
       </div>
     </div>
-    <!--    <a-tabs v-model:activeKey="activeKey" :change="changeKey(activeKey)" centered>
-          <a-tab-pane key="/" tab="网站导航" />
-          <a-tab-pane key="/tools" tab="我的工具" />
-        </a-tabs>-->
-    <router-link to="/">首页</router-link>
-    <router-link to="/tools">我的工具</router-link>
-    <a-tabs
-        v-model:activeKey="activeKey"
-        size="large"
-        :tabClick="changeKey()"
-        centered
-    >
-      <a-tab-pane key="/" tab="网站导航"></a-tab-pane>
-      <a-tab-pane key="/tools" tab="我的工具"></a-tab-pane>
-    </a-tabs>
+    <a-card :tab-list="tabListNoTitle" :active-tab-key="noTitleKey" @tabChange="key => onTabChange(key, key)" ></a-card>
   </div>
   <div class="controller">
     <router-view/>
@@ -58,9 +44,25 @@ const router = useRouter();
 
 const activeKey = ref(useRoute().path);
 
-const changeKey = () => {
-  router.push(activeKey.value)
-}
+const tabListNoTitle = [
+  {key: '/', tab: '网站导航',},
+  {key: '/tools', tab: '我的工具',}
+];
+
+const key = ref('/');
+const noTitleKey = ref('/');
+
+const onTabChange = (value, type) => {
+  console.log(value, type);
+
+  if (type === '/') {
+    noTitleKey.value = value;
+    router.push(type)
+  } else if (type === '/tools') {
+    noTitleKey.value = value;
+    router.push(type)
+  }
+};
 </script>
 
 <script>
