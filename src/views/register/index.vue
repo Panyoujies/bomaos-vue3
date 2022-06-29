@@ -4,7 +4,19 @@
       <img src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/ad7fa76844a2df5c03151ead0ce65ea6.svg" class="normal">
     </div>
     <a-form class="login-form flour-bg-white">
-      <h4>用户登录</h4>
+      <h4>用户注册</h4>
+      <a-form-item v-bind="validateInfos.nickName">
+        <a-input
+            allow-clear
+            size="large"
+            v-model:value="form.nickName"
+            placeholder="用户昵称"
+        >
+          <template #prefix>
+            <user-outlined/>
+          </template>
+        </a-input>
+      </a-form-item>
       <a-form-item v-bind="validateInfos.username">
         <a-input
             allow-clear
@@ -28,17 +40,43 @@
           </template>
         </a-input-password>
       </a-form-item>
-      <a-form-item>
-        <a-checkbox v-model:checked="form.remember">
-          记住密码
-        </a-checkbox>
-        <router-link
-            to="/forget"
-            class="flour-pull-right"
-            style="line-height: 22px"
+      <a-form-item v-bind="validateInfos.email">
+        <a-input
+            placeholder="请输入绑定邮箱"
+            v-model:value="form.email"
+            allow-clear
+            size="large"
         >
-          忘记密码
-        </router-link>
+          <template #prefix>
+            <mail-outlined/>
+          </template>
+        </a-input>
+      </a-form-item>
+      <a-form-item v-bind="validateInfos.code">
+        <div class="login-input-group">
+          <a-input
+              placeholder="请输入验证码"
+              v-model:value="form.code"
+              allow-clear
+              size="large"
+          >
+            <template #prefix>
+              <safety-certificate-outlined />
+            </template>
+          </a-input>
+          <a-button
+              block
+              size="large"
+              type="primary"
+              class="login-captcha"
+              :disabled="!!countdownTime"
+              :loading="codeLoading"
+              @click="sendCode"
+          >
+            <span v-if="!countdownTime">发送验证码</span>
+            <span v-else>已发送 {{ countdownTime }} s</span>
+          </a-button>
+        </div>
       </a-form-item>
       <a-form-item>
         <a-button
@@ -48,51 +86,61 @@
             :loading="loading"
             @click="submit"
         >
-          登录
+          注册
         </a-button>
       </a-form-item>
-      <div class="flour-text-center" style="padding-bottom: 32px">
-        <div>
-          <qq-outlined class="login-oauth-icon login-oauth-show" style="background: #3492ed"/>
-          <wechat-outlined class="login-oauth-icon" style="background: #4daf29"/>
-          <weibo-outlined class="login-oauth-icon" style="background: #cf1900"/>
-        </div>
-        <router-link to="/register">注册会员</router-link>
+      <div class="flour-text-center" style="padding-bottom:25px">
+        <router-link to="/login">用户登录</router-link>
       </div>
     </a-form>
   </div>
 </template>
 
 <script setup>
-import {ref, reactive, computed, unref} from 'vue';
+import {ref, reactive, computed, unref, onBeforeUnmount} from 'vue';
 import {Form, message} from 'ant-design-vue';
 import {getToken} from '@/utils/token-util';
 import {useRouter} from 'vue-router';
-import {goHomeRoute} from '@/utils/page-tab-util';
-import {login} from '@/api/login';
+import {goHomeRoute, goLoginRoute} from '@/utils/page-tab-util';
+import {register, sendEamilCode} from '@/api/register';
 import {
   UserOutlined,
   LockOutlined,
-  QqOutlined,
-  WechatOutlined,
-  WeiboOutlined
+  MailOutlined,
+  SafetyCertificateOutlined
 } from '@ant-design/icons-vue';
 
 const {currentRoute} = useRouter();
 
 const useForm = Form.useForm;
+// 发送验证码按钮loading
+const codeLoading = ref(false);
+// 验证码倒计时时间
+const countdownTime = ref(0);
+// 验证码倒计时定时器
+let countdownTimer = null;
 // 加载状态
 const loading = ref(false);
 // 表单数据
 const form = reactive({
+  nickName: '',
   username: '',
   password: '',
-  remember: true
+  email: '',
+  code: ''
 });
 
 // 表单验证规则
 const rules = computed(() => {
   return {
+    nickName: [
+      {
+        required: true,
+        message: '用户昵称',
+        type: 'string',
+        trigger: 'blur'
+      }
+    ],
     username: [
       {
         required: true,
@@ -108,11 +156,25 @@ const rules = computed(() => {
         type: 'string',
         trigger: 'blur'
       }
+    ],
+    email: [
+      {
+        required: true,
+        message: '请输入绑定邮箱',
+        type: 'string',
+        trigger: 'blur'
+      }
     ]
   };
 });
 
 const {validate, validateInfos} = useForm(form, rules);
+
+/* 跳转到首页 */
+const goLogin = () => {
+  const {query} = unref(currentRoute);
+  goLoginRoute(query.from);
+};
 
 /* 跳转到首页 */
 const goHome = () => {
@@ -124,10 +186,10 @@ const goHome = () => {
 const submit = () => {
   validate().then(() => {
     loading.value = true;
-    login(form)
+    register(form)
         .then((msg) => {
           message.success(msg);
-          goHome();
+          goLogin();
         })
         .catch((e) => {
           message.error(e.message);
@@ -135,6 +197,38 @@ const submit = () => {
         });
   });
 };
+
+/* 发送短信验证码 */
+const sendCode = () => {
+  validate().then(() => {
+    codeLoading.value = true;
+    sendEamilCode(form)
+        .then((msg) => {
+          setTimeout(() => {
+            message.success('短信验证码发送成功, 请注意查收!');
+            codeLoading.value = false;
+            countdownTime.value = 30;
+            // 开始对按钮进行倒计时
+            countdownTimer = window.setInterval(() => {
+              if (countdownTime.value <= 1) {
+                countdownTimer && clearInterval(countdownTimer);
+                countdownTimer = null;
+              }
+              countdownTime.value--;
+            }, 1000);
+          }, 1000);
+        })
+        .catch((e) => {
+          message.error(e.message);
+          codeLoading.value = false;
+        });
+  });
+
+};
+
+onBeforeUnmount(() => {
+  countdownTimer && clearInterval(countdownTimer);
+});
 
 if (getToken()) {
   goHome();
@@ -145,7 +239,7 @@ if (getToken()) {
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Login'
+  name: 'Register'
 }
 </script>
 
@@ -252,7 +346,7 @@ body .flour-pull-right {
 
 body .flour-text-center {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .login-oauth-show {

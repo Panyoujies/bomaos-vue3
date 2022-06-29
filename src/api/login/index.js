@@ -10,7 +10,6 @@ import { setToken } from '@/utils/token-util';
  */
 export async function login(data) {
     const res = await request.post('/login', data);
-    console.log(res)
     if (res.data.code === 0) {
         setToken(res.data?.access_token, data.remember);
         return res.data.msg;

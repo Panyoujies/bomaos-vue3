@@ -16,8 +16,11 @@ export const HOME_PATH = undefined;
 // 外层布局的路由地址
 export const LAYOUT_PATH = '/';
 
+// 外层布局的路由地址
+export const LOGIN_ROUTE = '/login';
+
 // 刷新路由的路由地址
 export const REDIRECT_PATH = '/redirect';
 
 // 不需要登录的路由
-export const WHITE_LIST = ['/login', '/forget'];
+export const WHITE_LIST = ['/login', '/register', '/forget'];

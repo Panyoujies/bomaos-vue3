@@ -1,6 +1,6 @@
 import router from '@/router';
 import { removeToken } from '@/utils/token-util';
-import { HOME_PATH, LAYOUT_PATH, API_BASE_URL } from '@/config/setting';
+import { HOME_PATH, LAYOUT_PATH, API_BASE_URL, LOGIN_ROUTE } from '@/config/setting';
 const HOME_ROUTE = HOME_PATH || LAYOUT_PATH;
 
 /**
@@ -24,6 +24,14 @@ export function isHomeRoute(route) {
  * @param from 登录前的地址
  */
 export function goHomeRoute(from) {
+    router.replace(from || HOME_ROUTE);
+}
+
+/**
+ * 注册成功后跳转登录
+ * @param from 登录前的地址
+ */
+export function goLoginRoute(from) {
     router.replace(from || HOME_ROUTE);
 }
 

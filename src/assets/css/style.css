@@ -56,3 +56,35 @@ a:hover {
 .ant-card {
     border-radius: 5px;
 }
+
+.ant-skeleton {
+    padding: 0 15px;
+}
+
+.ant-card-grid {
+    width: 25%;
+}
+
+.flour-text-center {
+    text-align: center;
+}
+
+.flour-text-secondary {
+    color: rgba(0, 0, 0, .45);
+}
+
+@media (max-width: 640px) {
+    .controller {
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .ant-card-grid {
+        width: 33.33%;
+    }
+
+    .ant-col {
+        flex: 100% !important;
+    }
+}

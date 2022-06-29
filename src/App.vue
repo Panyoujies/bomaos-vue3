@@ -17,11 +17,12 @@
           </span>
         </div>
         <div class="header-avatar">
-          <a-avatar :size="50" src="https://joeschmoe.io/api/v1/random" style="background-color: #87d068"/>
+          <a-avatar shape="square" :size="50" :src="tools" style="background-color: #e5e5e5"/>
         </div>
       </div>
     </div>
     <a-card
+        class="ant-card-header"
         :tab-list="tabListNoTitle"
         :active-tab-key="routeKeys"
         @tabChange="key => onTabChange(key, key)">
@@ -31,21 +32,38 @@
     <router-view/>
   </div>
   <div class="controller">
-    <footer style="text-align: center">
-      <div class="footer-title">
-        网址导航 ©2022 Created by <a href="https://github.com/panyoujies">@Panyoujies</a>
+    <div class="flour-text-center" style="padding: 35px 0">
+      <a-space size="large">
+        <a class="flour-text-secondary" href="https://github.com/Panyoujies/my-tools-vue3" target="_blank">
+          <github-outlined />
+          支持项目
+        </a>
+        <a class="flour-text-secondary" href="http://wpa.qq.com/msgrd?v=3&uin=1724962375&site=qq&menu=yes" target="_blank">
+          <qq-outlined />
+          联系作者
+        </a>
+        <a class="flour-text-secondary" href="https://zdins.cn/" target="_blank">
+          <slack-square-filled />
+          免责声明
+        </a>
+      </a-space>
+      <div class="flour-text-secondary" style="margin-top: 8px">
+        2022 值联工具 | <a href="http://www.beian.gov.cn/" target="_blank">琼ICP备2022003095号-1</a>
       </div>
-      <div class="footer-gov">
-        <a href="http://www.beian.gov.cn/" target="_blank">琼ICP备2022003095号-1</a>
-      </div>
-    </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
 import {ref, computed} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
-import { PROJECT_NAME } from '@/config/setting';
+import {PROJECT_NAME} from '@/config/setting';
+import tools from '@/assets/tools.svg'
+import {
+  GithubOutlined,
+  QqOutlined,
+  SlackSquareFilled
+} from '@ant-design/icons-vue';
 
 const router = useRouter();
 
@@ -107,7 +125,7 @@ export default {
 .header-logo span {
   margin-left: 15px;
   letter-spacing: 1.5px;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -124,5 +142,53 @@ footer {
 
 .footer-gov {
   margin-left: 15px;
+}
+
+.ant-card-header {
+  border-radius: 0px !important;
+
+}
+
+.ant-card-header .ant-card-head {
+  border-bottom: transparent;
+}
+
+.ant-pro-global-footer {
+  margin: 48px 0 24px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.ant-pro-global-footer {
+  margin-top: 24px;
+}
+
+.ant-pro-global-footer-links {
+  margin-bottom: 8px;
+}
+
+.ant-pro-global-footer-links a {
+  color: rgba(0,0,0,.45);
+  transition: all .3s;
+}
+
+.ant-pro-global-footer-links a:not(:last-child) {
+  margin-right: 40px;
+}
+
+.ant-pro-global-footer-copyright {
+  color: rgba(0,0,0,.45);
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .header-logo svg {
+    width: 45px;
+    height: 46px;
+  }
+
+  .header-logo span {
+    font-size: 25px;
+  }
 }
 </style>

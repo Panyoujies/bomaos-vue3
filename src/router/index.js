@@ -34,13 +34,13 @@ const routes = [
                 path: 'text',
                 name: 'text',
                 component: () => import('@/views/tools/text/index'),
-                meta: {title: 'text'},
+                meta: {title: '文本内容去重'},
             },
             {
                 path: '2fa',
                 name: '2fa',
                 component: () => import('@/views/tools/2fa/index'),
-                meta: {title: '2fa'},
+                meta: {title: '2FA验证码获取'},
             }
         ],
         meta: {title: '工具箱'},
@@ -50,6 +50,12 @@ const routes = [
         name: 'login',
         component: () => import('@/views/login/index'),
         meta: {title: '用户登录'}
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('@/views/register/index'),
+        meta: {title: '用户注册'}
     }
 ];
 

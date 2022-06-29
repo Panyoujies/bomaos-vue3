@@ -1,29 +1,32 @@
 <template>
-  <a-card title="Base64 加密解密" :bordered="false">
+  <a-card title="Base64 加密解密">
     <template #extra>
-      <a-button type="primary" @click="encodeBtn">加密</a-button>
-      <a-button @click="decodeBtn" style="margin-left: 10px">解密</a-button>
+      <a-button type="primary" :loading="loading" @click="encodeBtn">加密</a-button>
+      <a-button @click="decodeBtn" :loading="loadingDe" style="margin-left: 10px">解密</a-button>
     </template>
     <div style="padding: 15px">
-      <a-textarea v-model:value="value" placeholder="输入要加密/解密的内容" :rows="8" />
+      <a-textarea v-model:value="value" placeholder="输入要加密/解密的内容" :rows="8"/>
       <div v-show="isParse" style="margin-top: 15px">
         <div class="-parse">
           <span class="layout-vertcal">解析后内容</span>
           <a-button @click="copy" style="margin-left: 10px" class="layout-vertcal">复制内容</a-button>
         </div>
-        <a-textarea v-model:value="parseContent" placeholder="解密后的内容" :rows="8" />
+        <a-textarea v-model:value="parseContent" placeholder="解密后的内容" :rows="8"/>
       </div>
     </div>
   </a-card>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { message } from 'ant-design-vue';
+import {ref} from "vue";
+import {message} from 'ant-design-vue';
+
 let jsBase64 = require('js-base64').Base64;
 import useClipboard from 'vue-clipboard3';
-const { toClipboard } = useClipboard()
 
+const {toClipboard} = useClipboard()
+const loading = ref(false);
+const loadingDe = ref(false);
 const isParse = ref(false);
 // 需要加密的内容
 const value = ref('');
@@ -35,9 +38,13 @@ const encodeBtn = () => {
   if (!value.value) {
     return message.warning('加密内容不能为空');
   }
-  var encode = jsBase64.encode(value.value);
-  parseContent.value = encode;
-  isParse.value = true;
+  loading.value = true;
+  setTimeout(() => {
+    var encode = jsBase64.encode(value.value);
+    parseContent.value = encode;
+    isParse.value = true;
+    loading.value = false;
+  }, 1000);
 }
 
 // 解密
@@ -45,9 +52,19 @@ const decodeBtn = () => {
   if (!value.value) {
     return message.warning('解密内容不能为空');
   }
-  var decode = jsBase64.decode(value.value);
-  parseContent.value = decode;
-  isParse.value = true;
+  loadingDe.value = true;
+  setTimeout(() => {
+    try {
+      var decode = jsBase64.decode(value.value);
+      parseContent.value = decode;
+      isParse.value = true;
+      loadingDe.value = false;
+    } catch (DOMException) {
+      loadingDe.value = false;
+      isParse.value = false;
+      return message.error('格式错误、解码失败！')
+    }
+  }, 1000);
 }
 
 const copy = async () => {

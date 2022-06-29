@@ -1,24 +1,31 @@
 <template>
   <a-card :bordered="false">
-    <a v-for="site in siteList" :href="site.url" target="_blank" :key="site.id">
-      <a-tooltip :title="site.summary" color="blue">
-        <a-card-grid style="width: 25%; text-align: center">
-          <a-avatar shape="square" size="large" :src="site.icon" />
-          <div class="resource-name">{{ site.title }}</div>
-        </a-card-grid>
-      </a-tooltip>
-    </a>
+    <a-skeleton :loading="loading" active>
+      <a v-for="site in siteList" :href="site.url" target="_blank" :key="site.id">
+        <a-tooltip :title="site.summary" color="blue">
+          <a-card-grid style="text-align: center">
+            <a-avatar shape="square" size="large" :src="site.icon" />
+            <div class="resource-name">{{ site.title }}</div>
+          </a-card-grid>
+        </a-tooltip>
+      </a>
+    </a-skeleton>
   </a-card>
 </template>
 <script setup>
 import { ref } from 'vue';
 import { getDomains } from '@/api/app/index';
 
+const loading = ref(false);
 const siteList = ref([]);
 
 const getWebsite = () => {
+  loading.value = true;
   getDomains().then((res) => {
     siteList.value = res.map((d) => {
+      setTimeout(() => {
+        loading.value = false;
+      }, 300);
       return {
         ...d
       };
