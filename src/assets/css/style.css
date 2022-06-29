@@ -7,9 +7,15 @@ html, body {
     width: auto;
 }
 
-.controller {
+.container {
     margin: 0 auto;
-    width: 800px;
+    width: 900px;
+}
+
+.sticky {
+    z-index: 1000;
+    position: sticky;
+    top: 0px;
 }
 
 .resource-name {
@@ -65,6 +71,21 @@ a:hover {
     width: 25%;
 }
 
+.ant-layout-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.ant-layout-header, .ant-pro-top-menu {
+    padding: 0px;
+    height: 66px !important;
+    line-height: 65px !important;
+}
+
+.ant-input-prefix {
+    margin-right: 10px;
+}
+
 .flour-text-center {
     text-align: center;
 }
@@ -73,8 +94,30 @@ a:hover {
     color: rgba(0, 0, 0, .45);
 }
 
+.flour-logo {
+    float: left;
+    height: 100%;
+    line-height: 61px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #131313;
+    margin-right: 20px;
+}
+
+.flour-logo span {
+    margin-left: 15px;
+}
+
+.flour-logo span, .flour-logo img {
+    vertical-align: middle;
+}
+
+.flour-header {
+    display: flex;
+}
+
 @media (max-width: 640px) {
-    .controller {
+    .container {
         margin: 0 auto;
         width: 100%;
         padding: 0 15px;

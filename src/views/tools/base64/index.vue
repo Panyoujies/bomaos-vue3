@@ -1,8 +1,10 @@
 <template>
   <a-card title="Base64 加密解密">
     <template #extra>
-      <a-button type="primary" :loading="loading" @click="encodeBtn">加密</a-button>
-      <a-button @click="decodeBtn" :loading="loadingDe" style="margin-left: 10px">解密</a-button>
+      <a-space>
+        <a-button type="primary" :loading="loading" @click="encodeBtn">加密</a-button>
+        <a-button @click="decodeBtn" :loading="loadingDe">解密</a-button>
+      </a-space>
     </template>
     <div style="padding: 15px">
       <a-textarea v-model:value="value" placeholder="输入要加密/解密的内容" :rows="8"/>
