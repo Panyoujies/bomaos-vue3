@@ -4,7 +4,7 @@
       <div class="container flour-header">
         <router-link class="flour-logo" to="/" style="letter-spacing: 1.5px;">
           <img :src="tools" class="img-item" style="height: 32px;">
-          <span>值联工具箱</span>
+          <span>{{PROJECT_NAME}}</span>
         </router-link>
       </div>
     </a-layout-header>
@@ -61,7 +61,7 @@ import {ref, computed} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 import {PROJECT_NAME} from '@/config/setting';
 import tools from '@/assets/tools.svg'
-import { message } from "ant-design-vue";
+import { message, Layout, Input, Card, Space } from "ant-design-vue";
 import {
   GithubOutlined,
   QqOutlined,
@@ -69,9 +69,14 @@ import {
   GoogleOutlined
 } from '@ant-design/icons-vue';
 
-const router = useRouter();
+const ALayoutHeader = Layout.Header;
+const AInputSearch = Input.Search;
+const ACard = Card;
+const ASpace = Space;
 
+const router = useRouter();
 const content = ref('');
+
 const onSearch = () => {
   if (!content.value) {
     return message.warning('搜索内容不能为空');
@@ -96,8 +101,9 @@ const routeKeys = computed(() => {
   const path = useRoute().path;
   if (path.includes('tools')) {
     return '/tools';
+  } else {
+    return path;
   }
-  return noTitleKey;
 })
 
 const onTabChange = (value, type) => {

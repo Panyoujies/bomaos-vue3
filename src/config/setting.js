@@ -23,4 +23,4 @@ export const LOGIN_ROUTE = '/login';
 export const REDIRECT_PATH = '/redirect';
 
 // 不需要登录的路由
-export const WHITE_LIST = ['/login', '/register', '/forget'];
+export const WHITE_LIST = ['/', '/tools', '/tools/base64', '/tools/text', '/tools/2fa', '/login', '/register', '/forget'];

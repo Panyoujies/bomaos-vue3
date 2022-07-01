@@ -28,6 +28,9 @@
   </a-row>
 </template>
 <script setup>
+import {Row, Col} from "ant-design-vue";
+const ARow = Row;
+const ACol = Col;
 
 </script>
 

@@ -98,7 +98,7 @@
 
 <script setup>
 import {ref, reactive, computed, unref, onBeforeUnmount} from 'vue';
-import {Form, message} from 'ant-design-vue';
+import {Button, Form, Input, message} from 'ant-design-vue';
 import {getToken} from '@/utils/token-util';
 import {useRouter} from 'vue-router';
 import {goHomeRoute, goLoginRoute} from '@/utils/page-tab-util';
@@ -109,6 +109,12 @@ import {
   MailOutlined,
   SafetyCertificateOutlined
 } from '@ant-design/icons-vue';
+
+const AInput = Input;
+const AInputPassword = Input.Password;
+const AForm = Form;
+const AFormItem = Form.Item;
+const AButton = Button;
 
 const {currentRoute} = useRouter();
 

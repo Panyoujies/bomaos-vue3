@@ -21,7 +21,11 @@
 
 <script setup>
 import {ref} from "vue";
-import {message} from 'ant-design-vue';
+import {message, Card, Space, Textarea, Button} from 'ant-design-vue';
+const ACard = Card;
+const ASpace = Space;
+const ATextarea = Textarea;
+const AButton = Button;
 
 let jsBase64 = require('js-base64').Base64;
 import useClipboard from 'vue-clipboard3';

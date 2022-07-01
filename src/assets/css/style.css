@@ -13,7 +13,7 @@ html, body {
 }
 
 .sticky {
-    z-index: 1000;
+    z-index: 11;
     position: sticky;
     top: 0px;
 }

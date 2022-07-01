@@ -2,12 +2,10 @@
   <a-card :bordered="false">
     <a-skeleton :loading="loading" active>
       <a v-for="site in siteList" :href="site.url" target="_blank" :key="site.id">
-        <a-tooltip :title="site.summary" color="blue">
-          <a-card-grid style="text-align: center">
-            <a-avatar shape="square" size="large" :src="site.icon" />
-            <div class="resource-name">{{ site.title }}</div>
-          </a-card-grid>
-        </a-tooltip>
+        <a-card-grid style="text-align: center">
+          <a-avatar shape="square" size="large" :src="site.icon" />
+          <div class="resource-name">{{ site.title }}</div>
+        </a-card-grid>
       </a>
     </a-skeleton>
   </a-card>
@@ -15,6 +13,11 @@
 <script setup>
 import { ref } from 'vue';
 import { getDomains } from '@/api/app/index';
+import { Card, Avatar, Skeleton } from 'ant-design-vue';
+const ACard = Card;
+const ACardGrid = Card.Grid;
+const AAvatar = Avatar;
+const ASkeleton = Skeleton;
 
 const loading = ref(false);
 const siteList = ref([]);
