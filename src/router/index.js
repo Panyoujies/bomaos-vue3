@@ -41,6 +41,12 @@ const routes = [
                 name: '2fa',
                 component: () => import('@/views/tools/2fa/index'),
                 meta: {title: '2FA验证码获取'},
+            },
+            {
+                path: 'cdk',
+                name: 'cdk',
+                component: () => import('@/views/tools/cdk/index'),
+                meta: {title: '卡密生成'},
             }
         ],
         meta: {title: '工具箱'},
