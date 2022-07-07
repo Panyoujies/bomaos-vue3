@@ -114,6 +114,7 @@ a:hover {
 
 .flour-header {
     display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 640px) {

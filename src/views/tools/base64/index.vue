@@ -1,13 +1,13 @@
 <template>
-  <a-card title="Base64 加密解密">
+  <a-card :title="t('tools.base64.module.title')">
     <template #extra>
       <a-space>
-        <a-button type="primary" :loading="loading" @click="encodeBtn">加密</a-button>
-        <a-button @click="decodeBtn" :loading="loadingDe">解密</a-button>
+        <a-button type="primary" :loading="loading" @click="encodeBtn">{{ t('tools.base64.module.encode') }}</a-button>
+        <a-button @click="decodeBtn" :loading="loadingDe">{{ t('tools.base64.module.decode') }}</a-button>
       </a-space>
     </template>
     <div style="padding: 15px">
-      <a-textarea v-model:value="value" placeholder="输入要加密/解密的内容" :rows="8"/>
+      <a-textarea v-model:value="value" :placeholder="t('tools.base64.module.placeholder')" :rows="8"/>
       <div v-show="isParse" style="margin-top: 15px">
         <div class="-parse">
           <span class="layout-vertcal">解析后内容</span>
@@ -29,6 +29,7 @@ const AButton = Button;
 
 let jsBase64 = require('js-base64').Base64;
 import useClipboard from 'vue-clipboard3';
+import { useI18n } from "vue-i18n";
 
 const {toClipboard} = useClipboard()
 const loading = ref(false);
@@ -38,6 +39,7 @@ const isParse = ref(false);
 const value = ref('');
 // 解析后的内容
 const parseContent = ref('');
+const { t } = useI18n();
 
 // 加密
 const encodeBtn = () => {

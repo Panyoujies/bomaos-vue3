@@ -10,6 +10,9 @@ export const API_BASE_URL = 'https://zlianyun.cn/api';
 // 项目名称
 export const PROJECT_NAME = '值联在线工具';
 
+// i18n 缓存的名称
+export const I18N_CACHE_NAME = 'i18n-lang';
+
 // 首页路径, 为空则取第一个菜单的地址
 export const HOME_PATH = undefined;
 
@@ -23,4 +26,14 @@ export const LOGIN_ROUTE = '/login';
 export const REDIRECT_PATH = '/redirect';
 
 // 不需要登录的路由
-export const WHITE_LIST = ['/', '/tools', '/tools/base64', '/tools/text', '/tools/2fa', '/login', '/register', '/forget'];
+export const WHITE_LIST = [
+    '/',
+    '/tools',
+    '/tools/base64',
+    '/tools/text',
+    '/tools/2fa',
+    '/tools/cdk',
+    '/login',
+    '/register',
+    '/forget'
+];
