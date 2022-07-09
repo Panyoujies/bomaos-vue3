@@ -27,13 +27,13 @@ export default {
   // header
   app: {
     header: {
-      title: '值联工具箱'
+      title: '波猫导航'
     },
     search: {
       placeholder: '输入要搜索的内容'
     },
     navigation: {
-      home: '网站导航',
+      home: '网址导航',
       tools: '我的工具'
     },
     footer: {

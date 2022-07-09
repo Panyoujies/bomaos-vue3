@@ -27,15 +27,9 @@
 
 <script setup>
 import {ref, watch} from "vue";
-import {message, Card, Button, Input, Descriptions} from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 import useClipboard from 'vue-clipboard3';
 import * as OTPAuth from 'otpauth';
-
-const ACard = Card;
-const AButton = Button;
-const AInput = Input;
-const ADescriptions = Descriptions;
-const ADescriptionsItem = Descriptions.Item;
 
 const {toClipboard} = useClipboard()
 const loading = ref(false);

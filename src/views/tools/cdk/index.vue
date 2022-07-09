@@ -24,13 +24,9 @@
 
 <script setup>
 import { ref } from "vue";
-import {message, Card, Textarea, Button, Input, Space} from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 import useClipboard from 'vue-clipboard3';
-const ACard = Card;
-const ATextarea = Textarea;
-const AButton = Button;
-const AInput = Input;
-const ASpace = Space;
+
 const { toClipboard } = useClipboard()
 const loading = ref(false);
 // 生成后的内容

@@ -5,10 +5,10 @@ export const TOKEN_STORE_NAME = 'access_token';
 export const TOKEN_HEADER_NAME = 'Authorization';
 
 // 接口地址
-export const API_BASE_URL = 'https://zlianyun.cn/api';
+export const API_BASE_URL = 'https://api.bomaos.com/api';
 
 // 项目名称
-export const PROJECT_NAME = '值联在线工具';
+export const PROJECT_NAME = '波猫导航';
 
 // i18n 缓存的名称
 export const I18N_CACHE_NAME = 'i18n-lang';

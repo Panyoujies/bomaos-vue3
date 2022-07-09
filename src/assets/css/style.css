@@ -47,9 +47,9 @@ a:hover {
     margin: 0;
 }
 
-.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
+/*.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
     justify-content: center;
-}
+}*/
 
 .ant-card-head .ant-tabs-top {
     margin-bottom: auto;
@@ -115,6 +115,15 @@ a:hover {
 .flour-header {
     display: flex;
     justify-content: space-between;
+}
+
+.ant-anchor-link-title {
+    font-size: 17px;
+}
+
+.ant-anchor-link {
+    padding: 10px 0 10px 16px;
+    line-height: 1.143;
 }
 
 @media (max-width: 640px) {

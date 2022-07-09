@@ -20,7 +20,7 @@ export default {
   // header
   app: {
     header: {
-      title: 'ZLian Toolbox'
+      title: 'Bomao Nav'
     },
     search: {
       placeholder: 'Enter what to search'

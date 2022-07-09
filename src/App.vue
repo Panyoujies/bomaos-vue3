@@ -1,34 +1,32 @@
 <template>
   <a-config-provider :locale="antLocale">
-    <div class="header-body sticky">
-      <a-layout-header>
-        <div class="container flour-header">
-          <router-link class="flour-logo" to="/" style="letter-spacing: 1.5px;">
-            <img :src="tools" class="img-item" style="height: 32px;">
-            <span>{{ t('app.header.title') }}</span>
-          </router-link>
-          <div style="line-height: 66px;">
-            <a-dropdown>
-              <template #overlay>
-                <a-menu @click="handleMenuClick">
-                  <a-menu-item key="zh_CN">
-                    <UserOutlined/>
-                    简体中文
-                  </a-menu-item>
-                  <a-menu-item key="en">
-                    <UserOutlined/>
-                    English
-                  </a-menu-item>
-                </a-menu>
-              </template>
-              <a-button>
-                {{ language }}
-                <DownOutlined/>
-              </a-button>
-            </a-dropdown>
-          </div>
+    <a-layout-header class="sticky">
+      <div class="container flour-header">
+        <router-link class="flour-logo" to="/" style="letter-spacing: 1.5px;">
+          <img :src="tools" class="img-item" style="height: 32px; border-radius: 5px">
+          <span>{{ t('app.header.title') }}</span>
+        </router-link>
+        <div style="line-height: 66px;">
+          <a-dropdown>
+            <template #overlay>
+              <a-menu @click="handleMenuClick">
+                <a-menu-item key="zh_CN">
+                  简体中文
+                </a-menu-item>
+                <a-menu-item key="en">
+                  English
+                </a-menu-item>
+              </a-menu>
+            </template>
+            <a-button>
+              {{ language }}
+              <DownOutlined/>
+            </a-button>
+          </a-dropdown>
         </div>
-      </a-layout-header>
+      </div>
+    </a-layout-header>
+    <div class="header-body">
       <div class="container">
         <div class="header">
           <a-input-search
@@ -44,12 +42,22 @@
           </a-input-search>
         </div>
       </div>
-      <a-card
-          class="ant-card-header"
-          :tab-list="tabListNoTitle"
-          :active-tab-key="routeKeys"
-          @tabChange="key => onTabChange(key, key)">
-      </a-card>
+      <div class="header-nav" style="background-color: white;">
+        <div class="container">
+          <a-card
+              class="ant-card-header"
+              :tab-list="tabListNoTitle"
+              :active-tab-key="routeKeys"
+              @tabChange="key => onTabChange(key, key)"
+              :bordered="false">
+            <template #tabBarExtraContent>
+              <a-space :size="15">
+                <a-button @click="showModal">提交网站</a-button>
+              </a-space>
+            </template>
+          </a-card>
+        </div>
+      </div>
     </div>
     <div class="container">
       <router-view/>
@@ -76,16 +84,63 @@
         </div>
       </div>
     </div>
+    <a-modal v-model:visible="visible" width="340px" title="提交网站" @ok="handleOk">
+      <a-form
+          :label-col="{ md: { span: 7 }, sm: { span: 4 }, xs: { span: 24 } }"
+          :wrapper-col="{ md: { span: 17 }, sm: { span: 20 }, xs: { span: 24 } }"
+      >
+        <a-form-item label="网站分类" v-bind="validateInfos.classifyId">
+          <a-select
+              allow-clear
+              v-model:value="form.classifyId"
+              placeholder="请选择网站分类"
+          >
+            <a-select-option
+                v-for="classify in classifyList"
+                :value="classify.id"
+                :key="classify.id"
+            >
+              {{ classify.title }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="网站名称" v-bind="validateInfos.title">
+          <a-input
+              allow-clear
+              :maxlength="20"
+              placeholder="请输入网站名称"
+              v-model:value="form.title"
+              @blur="validate('title', { trigger: 'blur' }).catch(() => {})"
+          />
+        </a-form-item>
+        <a-form-item label="网站链接" v-bind="validateInfos.url">
+          <a-input
+              allow-clear
+              :maxlength="100"
+              placeholder="请输入网站链接"
+              v-model:value="form.url"
+              @blur="validate('title', { trigger: 'blur' }).catch(() => {})"
+          />
+        </a-form-item>
+        <a-form-item label="网站描述" v-bind="validateInfos.summary">
+          <a-textarea
+              :rows="4"
+              v-model:value="form.summary"
+              placeholder="请输入网站描述"
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
   </a-config-provider>
 </template>
 
 <script setup>
-import {ref, computed} from 'vue';
+import {ref, computed, reactive} from 'vue';
 import {useRouter, useRoute} from 'vue-router';
 import {useI18n} from 'vue-i18n';
 import {I18N_CACHE_NAME} from '@/config/setting';
 import tools from '@/assets/tools.svg'
-import {message, Layout, Input, Card, Space, Dropdown, Button, Menu} from "ant-design-vue";
+import {message, Form} from "ant-design-vue";
 import {
   GithubOutlined,
   QqOutlined,
@@ -94,27 +149,68 @@ import {
   DownOutlined
 } from '@ant-design/icons-vue';
 import {useLocale} from '@/i18n/use-locale';
-
-const { t } = useI18n();
+import {getClassifys, postAddDomain} from "@/api/home";
+const useForm = Form.useForm;
+const { push } = useRouter();
+const {t} = useI18n();
 const {antLocale} = useLocale();
 
-const ALayoutHeader = Layout.Header;
-const AInputSearch = Input.Search;
-const ACard = Card;
-const ASpace = Space;
-const ADropdown = Dropdown;
-const AButton = Button;
-const AMenu = Menu;
-const AMenuItem = Menu.Item;
+const classifyList = ref([]);
+const loading = ref(false);
 
-const router = useRouter();
+const form = reactive({
+  id: undefined,
+  classifyId: undefined, // 商品分类
+  title: '',
+  url: '',
+  summary: ''
+});
+
+// 表单验证规则
+const rules = reactive({
+  title: [
+    {
+      required: true,
+      type: 'string',
+      message: '请输入网站名称',
+      trigger: 'blur'
+    }
+  ],
+  url: [
+    {
+      required: true,
+      type: 'string',
+      message: '请输入网站链接',
+      trigger: 'blur'
+    }
+  ],
+  summary: [
+    {
+      required: true,
+      type: 'string',
+      message: '请输入网站描述',
+      trigger: 'blur'
+    }
+  ],
+  classifyId: [
+    {
+      required: true,
+      message: '请选择分类',
+      type: 'number',
+      trigger: 'blur'
+    }
+  ]
+});
+
+const { validate, validateInfos } = useForm(form, rules);
+
 const content = ref('');
 
 const onSearch = () => {
   if (!content.value) {
     return message.warning('搜索内容不能为空');
   }
-  window.open('https://www.google.com/search?q=' + content.value , '_blank');
+  window.open('https://www.google.com/search?q=' + content.value, '_blank');
 }
 
 const tabListNoTitle = [
@@ -141,10 +237,10 @@ const routeKeys = computed(() => {
 
 const onTabChange = (value, type) => {
   noTitleKey.value = value;
-  router.push(type)
+  push(type)
 };
 
-const { locale } = useI18n();
+const {locale} = useI18n();
 
 // 当前显示语言
 // eslint-disable-next-line vue/return-in-computed-property
@@ -163,6 +259,38 @@ const handleMenuClick = ({key}) => {
   location.reload()
 };
 
+const visible = ref(false);
+
+const showModal = () => {
+  visible.value = true;
+};
+
+const handleOk = e => {
+  validate()
+      .then(() => {
+        loading.value = true;
+        const data = {
+          ...form
+        };
+        const saveOrUpdate = postAddDomain;
+        saveOrUpdate(data)
+            .then((msg) => {
+              loading.value = false;
+              visible.value = false;
+              message.success(msg);
+            })
+            .catch((e) => {
+              loading.value = false;
+              message.error(e.message);
+            });
+      })
+      .catch(() => {});
+};
+
+getClassifys().then((mData) => {
+  classifyList.value = mData;
+})
+
 </script>
 
 <script>
@@ -171,7 +299,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header-body {
   margin-bottom: 15px;
   background-color: #fcfcfc;
@@ -198,6 +326,11 @@ export default {
   letter-spacing: 1.5px;
   font-size: 30px;
   font-weight: bold;
+}
+
+.header-nav {
+  border-bottom: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
 }
 
 .layout-vertcal {
@@ -234,7 +367,7 @@ footer {
 }
 
 .ant-pro-global-footer-links a {
-  color: rgba(0,0,0,.45);
+  color: rgba(0, 0, 0, .45);
   transition: all .3s;
 }
 
@@ -243,22 +376,53 @@ footer {
 }
 
 .ant-pro-global-footer-copyright {
-  color: rgba(0,0,0,.45);
+  color: rgba(0, 0, 0, .45);
   font-size: 14px;
+}
+
+.ant-card-header >>> .ant-card-head {
+  padding: 0;
+  border-bottom: transparent;
+}
+
+.ele-admin-header-tool-item {
+  padding: 0 12px;
+  font-size: 14px;
+  transition: color .2s,background-color .2s;
+  cursor: pointer;
+}
+
+.ele-admin-header-tool-item .ele-admin-header-avatar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+/* 单元格 */
+.ele-cell {
+  display: flex;
+  align-items: center;
+}
+
+.ele-cell .ele-cell-content {
+  flex: 1;
+  padding-left: 5px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 640px) {
   .header {
-    padding: 20px 0;
+  padding: 20px 0;
   }
 
   .header-logo svg {
-    width: 45px;
-    height: 46px;
+  width: 45px;
+  height: 46px;
   }
 
   .header-logo span {
-    font-size: 25px;
+  font-size: 25px;
   }
 }
 </style>

@@ -18,11 +18,8 @@
 
 <script setup>
 import { ref } from "vue";
-import { message, Card, Textarea, Button } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import useClipboard from 'vue-clipboard3';
-const ACard = Card;
-const ATextarea = Textarea;
-const AButton = Button;
 const { toClipboard } = useClipboard()
 const loading = ref(false);
 const isParse = ref(false);

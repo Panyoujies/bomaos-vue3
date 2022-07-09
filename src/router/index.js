@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import {PROJECT_NAME, WHITE_LIST, REDIRECT_PATH} from '@/config/setting';
 import { getToken } from '@/utils/token-util';
+import { useUserStore } from '@/store/modules/user';
 import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 
@@ -90,10 +91,15 @@ router.beforeEach(async (to, from) => {
         if (!WHITE_LIST.includes(to.path)) {
             return {
                 path: '/login',
-                query: to.path === '/' ? {} : { from: to.path }
+                query: to.path === '/home' ? {} : { from: to.path }
             };
         }
         return;
+    }
+    // 注册动态路由
+    const userStore = useUserStore();
+    if (!userStore.info) {
+        await userStore.fetchUserInfo();
     }
 })
 

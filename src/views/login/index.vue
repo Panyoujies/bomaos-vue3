@@ -65,7 +65,7 @@
 
 <script setup>
 import {ref, reactive, computed, unref} from 'vue';
-import {Form, message, Input, Checkbox, Button} from 'ant-design-vue';
+import {Form, message} from 'ant-design-vue';
 import {getToken} from '@/utils/token-util';
 import {useRouter} from 'vue-router';
 import {goHomeRoute} from '@/utils/page-tab-util';
@@ -77,13 +77,6 @@ import {
   WechatOutlined,
   WeiboOutlined
 } from '@ant-design/icons-vue';
-
-const AInput = Input;
-const AInputPassword = Input.Password;
-const AForm = Form;
-const AFormItem = Form.Item;
-const ACheckbox = Checkbox;
-const AButton = Button;
 
 const {currentRoute} = useRouter();
 
