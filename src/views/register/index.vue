@@ -3,7 +3,7 @@
     <div class="panfish">
       <img src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/ad7fa76844a2df5c03151ead0ce65ea6.svg" class="normal">
     </div>
-    <a-form class="login-form flour-bg-white">
+    <a-form class="login-form bomao-bg-white">
       <h4>用户注册</h4>
       <a-form-item v-bind="validateInfos.nickName">
         <a-input
@@ -89,7 +89,7 @@
           注册
         </a-button>
       </a-form-item>
-      <div class="flour-text-center" style="padding-bottom:25px">
+      <div class="bomao-text-center" style="padding-bottom:25px">
         <router-link to="/login">用户登录</router-link>
       </div>
     </a-form>
@@ -270,7 +270,7 @@ body h4 {
   text-align: center;
 }
 
-body .flour-bg-white {
+body .bomao-bg-white {
   background-color: #fff !important;
 }
 
@@ -340,11 +340,11 @@ body .flour-bg-white {
   z-index: 3;
 }
 
-body .flour-pull-right {
+body .bomao-pull-right {
   float: right;
 }
 
-body .flour-text-center {
+body .bomao-text-center {
   display: flex;
   justify-content: flex-end;
 }
@@ -353,7 +353,7 @@ body .flour-text-center {
   margin: 0 12px 0 0;
 }
 
-body .flour-text-center a {
+body .bomao-text-center a {
   line-height: 26px;
 }
 

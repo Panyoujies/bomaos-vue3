@@ -86,15 +86,19 @@ a:hover {
     margin-right: 10px;
 }
 
-.flour-text-center {
+.ant-input-group-wrapper {
+    width: 500px;
+}
+
+.bomao-text-center {
     text-align: center;
 }
 
-.flour-text-secondary {
+.bomao-text-secondary {
     color: rgba(0, 0, 0, .45);
 }
 
-.flour-logo {
+.bomao-logo {
     float: left;
     height: 100%;
     line-height: 61px;
@@ -104,15 +108,15 @@ a:hover {
     margin-right: 20px;
 }
 
-.flour-logo span {
+.bomao-logo span {
     margin-left: 15px;
 }
 
-.flour-logo span, .flour-logo img {
+.bomao-logo span, .bomao-logo img {
     vertical-align: middle;
 }
 
-.flour-header {
+.bomao-header {
     display: flex;
     justify-content: space-between;
 }
@@ -139,5 +143,9 @@ a:hover {
 
     .ant-col {
         flex: 100% !important;
+    }
+
+    .ant-input-group-wrapper {
+        width: 100%;
     }
 }

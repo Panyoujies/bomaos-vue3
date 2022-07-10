@@ -3,7 +3,7 @@
     <div class="panfish">
       <img src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/ad7fa76844a2df5c03151ead0ce65ea6.svg" class="normal">
     </div>
-    <a-form class="login-form flour-bg-white">
+    <a-form class="login-form bomao-bg-white">
       <h4>用户登录</h4>
       <a-form-item v-bind="validateInfos.username">
         <a-input
@@ -34,7 +34,7 @@
         </a-checkbox>
         <router-link
             to="/forget"
-            class="flour-pull-right"
+            class="bomao-pull-right"
             style="line-height: 22px"
         >
           忘记密码
@@ -51,7 +51,7 @@
           登录
         </a-button>
       </a-form-item>
-      <div class="flour-text-center" style="padding-bottom: 32px">
+      <div class="bomao-text-center" style="padding-bottom: 32px">
         <div>
           <qq-outlined class="login-oauth-icon login-oauth-show" style="background: #3492ed"/>
           <wechat-outlined class="login-oauth-icon" style="background: #4daf29"/>
@@ -176,7 +176,7 @@ body h4 {
   text-align: center;
 }
 
-body .flour-bg-white {
+body .bomao-bg-white {
   background-color: #fff !important;
 }
 
@@ -246,11 +246,11 @@ body .flour-bg-white {
   z-index: 3;
 }
 
-body .flour-pull-right {
+body .bomao-pull-right {
   float: right;
 }
 
-body .flour-text-center {
+body .bomao-text-center {
   display: flex;
   justify-content: space-between;
 }
@@ -259,7 +259,7 @@ body .flour-text-center {
   margin: 0 12px 0 0;
 }
 
-body .flour-text-center a {
+body .bomao-text-center a {
   line-height: 26px;
 }
 
