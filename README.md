@@ -1,5 +1,5 @@
 # 项目网址
-[波猫导航 - bomaos.com]([https://cli.vuejs.org/config/](https://bomaos.com))
+[波猫导航 - bomaos.com](https://bomaos.com)
 
 ### 本项目前端使用 AntdV + Vue3 （手机和pc自适应）、 后端使用Spring boot 开发的网址导航系统 - 波猫导航
 ### 本项目持续更新中～～
