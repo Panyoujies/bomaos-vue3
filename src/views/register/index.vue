@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrapper">
     <div class="panfish">
-      <img src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/ad7fa76844a2df5c03151ead0ce65ea6.svg" class="normal">
+      <img :src="loginLogo" class="normal">
     </div>
     <a-form class="login-form bomao-bg-white">
       <h4>用户注册</h4>
@@ -109,6 +109,7 @@ import {
   MailOutlined,
   SafetyCertificateOutlined
 } from '@ant-design/icons-vue';
+import loginLogo from '@/assets/login.svg'
 
 const {currentRoute} = useRouter();
 
@@ -254,7 +255,7 @@ export default {
 }
 
 .login-wrapper {
-  padding: 120px 16px 0;
+  padding: 90px 16px 0;
   position: relative;
   box-sizing: border-box;
   background-repeat: no-repeat;
@@ -330,13 +331,13 @@ body .bomao-bg-white {
 }
 
 .panfish .normal {
-  transform: translate(-50%,-90.6%);
+  transform: translate(-50%,-91%);
 }
 
 .panfish .greeting, .panfish .normal {
   position: absolute;
   left: 50%;
-  width: 10rem;
+  width: 200px;
   z-index: 3;
 }
 

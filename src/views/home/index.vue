@@ -13,7 +13,16 @@
                 <a-tooltip :title="item.summary" color="blue" placement="right" :destroyTooltipOnHide="true">
                   <a-space :size="10">
                     <span style="margin-left: 5px">{{ item.title }}</span>
-                    <a-badge v-if="item.anchor == 'often'" status="processing" />
+                  </a-space>
+                </a-tooltip>
+              </template>
+            </a-anchor-link>
+            <a-anchor-link href="#tools">
+              <template #title>
+                <a-tooltip title="内置工具集" color="blue" placement="right" :destroyTooltipOnHide="true">
+                  <a-space :size="10">
+                    <span style="margin-left: 5px">内置工具</span>
+                    <a-badge color="purple"/>
                   </a-space>
                 </a-tooltip>
               </template>
@@ -43,6 +52,38 @@
                 <a-avatar shape="square" size="large" :src="site.icon"/>
                 <div class="resource-name">{{ site.title }}</div>
               </a>
+            </a-card-grid>
+          </a-card>
+        </a-badge-ribbon>
+        <a-badge-ribbon text="内置工具集" color="purple">
+          <a-card id="tools" style="marginTop: 16px">
+            <template #title>
+              内置工具
+              <a-badge color="purple" :style="{ marginLeft: '10px' }"/>
+            </template>
+            <a-card-grid style="text-align: center">
+              <router-link to="/base64" style="display: block;">
+                <a-avatar shape="square" size="large" src="/assets/images/base64.png"/>
+                <div class="resource-name">Base64加解密</div>
+              </router-link>
+            </a-card-grid>
+            <a-card-grid style="text-align: center">
+              <router-link to="/text" style="display: block;">
+                <a-avatar shape="square" size="large" src="/assets/images/text.png"/>
+                <div class="resource-name">文本去重</div>
+              </router-link>
+            </a-card-grid>
+            <a-card-grid style="text-align: center">
+              <router-link to="/2fa" style="display: block;">
+                <a-avatar shape="square" size="large" src="/assets/images/2fa.png"/>
+                <div class="resource-name">2FA验证码</div>
+              </router-link>
+            </a-card-grid>
+            <a-card-grid style="text-align: center">
+              <router-link to="/cdk" style="display: block;">
+                <a-avatar shape="square" size="large" src="/assets/images/cdk.png"/>
+                <div class="resource-name">卡密生成</div>
+              </router-link>
             </a-card-grid>
           </a-card>
         </a-badge-ribbon>

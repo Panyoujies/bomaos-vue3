@@ -86,8 +86,8 @@ a:hover {
     margin-right: 10px;
 }
 
-.ant-input-group-wrapper {
-    width: 500px;
+.ant-btn {
+    border-radius: 5px;
 }
 
 .bomao-text-center {
@@ -130,6 +130,10 @@ a:hover {
     line-height: 1.143;
 }
 
+.ant-anchor-ink::before {
+    background-color: #e7e7e7;
+}
+
 @media (max-width: 640px) {
     .container {
         margin: 0 auto;
@@ -145,7 +149,4 @@ a:hover {
         flex: 100% !important;
     }
 
-    .ant-input-group-wrapper {
-        width: 100%;
-    }
 }

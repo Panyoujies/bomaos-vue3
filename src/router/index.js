@@ -20,37 +20,34 @@ const routes = [
         meta: {title: '网址导航'}
     },
     {
-        path: '/tools',
-        name: 'tools',
-        component: () => import('@/views/tools/index'),
-        redirect: '/tools/base64',
-        children: [
-            {
-                path: 'base64',
-                name: 'base64',
-                component: () => import('@/views/tools/base64/index'),
-                meta: {title: 'Base64 加密解密'},
-            },
-            {
-                path: 'text',
-                name: 'text',
-                component: () => import('@/views/tools/text/index'),
-                meta: {title: '文本内容去重'},
-            },
-            {
-                path: '2fa',
-                name: '2fa',
-                component: () => import('@/views/tools/2fa/index'),
-                meta: {title: '2FA验证码获取'},
-            },
-            {
-                path: 'cdk',
-                name: 'cdk',
-                component: () => import('@/views/tools/cdk/index'),
-                meta: {title: '卡密生成'},
-            }
-        ],
-        meta: {title: '工具箱'},
+        path: '/store',
+        name: 'store',
+        component: () => import('@/views/store/index'),
+        meta: {title: '波猫商店'}
+    },
+    {
+        path: '/base64',
+        name: 'base64',
+        component: () => import('@/views/tools/base64/index'),
+        meta: {title: 'Base64 加密解密'},
+    },
+    {
+        path: '/text',
+        name: 'text',
+        component: () => import('@/views/tools/text/index'),
+        meta: {title: '文本内容去重'},
+    },
+    {
+        path: '/2fa',
+        name: '2fa',
+        component: () => import('@/views/tools/2fa/index'),
+        meta: {title: '2FA验证码获取'},
+    },
+    {
+        path: '/cdk',
+        name: 'cdk',
+        component: () => import('@/views/tools/cdk/index'),
+        meta: {title: '卡密生成'},
     },
     {
         path: '/login',

@@ -17,7 +17,7 @@
         </a>
       </a-space>
       <div class="bomao-text-secondary" style="margin-top: 8px">
-        2022 {{ t('app.footer.toolName') }} | <a href="http://www.beian.gov.cn/" target="_blank">琼ICP备2022003095号-1</a>
+        2022 {{ t('app.footer.toolName') }} | 提供一体化的导航与商店
       </div>
     </div>
   </div>

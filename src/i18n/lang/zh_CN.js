@@ -34,7 +34,7 @@ export default {
     },
     navigation: {
       home: '网址导航',
-      tools: '我的工具'
+      store: '波猫商店'
     },
     footer: {
       github: '支持项目',

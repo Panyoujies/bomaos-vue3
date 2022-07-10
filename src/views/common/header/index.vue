@@ -28,16 +28,18 @@
   <div class="header-body">
     <div class="container">
       <div class="header">
-        <a-input-search
+        <a-input
             v-model:value="content"
             :placeholder="t('app.search.placeholder')"
             size="large"
-            enter-button
-            @search="onSearch">
+            @keyup.enter="onSearch">
           <template #prefix>
-            <google-outlined style="color: #1890ff; font-size: 20px;"/>
+            <google-outlined style="color: #1890ff; font-size: 25px;"/>
           </template>
-        </a-input-search>
+          <template #suffix>
+            <search-outlined @click="onSearch" />
+          </template>
+        </a-input>
       </div>
     </div>
     <div class="header-nav" style="background-color: white;">
@@ -48,6 +50,14 @@
             :active-tab-key="routeKeys"
             @tabChange="key => onTabChange(key, key)"
             :bordered="false">
+          <template #customTab="item">
+            <a-tooltip v-if="item.key === '/store'" placement="top" title="新版波猫商店即将上线、我们将会部分提供虚拟物品的销售">
+              <span>
+                波猫商店
+                <a-badge :dot="tabStoreShow" color="blue" :style="{ marginLeft: '5px' }" status="processing"/>
+              </span>
+            </a-tooltip>
+          </template>
           <template #tabBarExtraContent>
             <a-space :size="15">
               <a-button @click="showModal">提交网站</a-button>
@@ -115,7 +125,8 @@ import tools from '@/assets/tools.svg'
 import {message, Form} from "ant-design-vue";
 import {
   GoogleOutlined,
-  DownOutlined
+  DownOutlined,
+  SearchOutlined
 } from '@ant-design/icons-vue';
 import {getClassifys, postAddDomain} from "@/api/home";
 const useForm = Form.useForm;
@@ -123,6 +134,7 @@ const { push } = useRouter();
 const {t} = useI18n();
 
 const classifyList = ref([]);
+const tabStoreShow = ref(true);
 const loading = ref(false);
 
 const form = reactive({
@@ -182,7 +194,7 @@ const onSearch = () => {
 
 const tabListNoTitle = [
   {key: '/', tab: t('app.navigation.home')},
-  {key: '/tools', tab: t('app.navigation.tools')}
+  {key: '/store', tab: t('app.navigation.store')}
 ];
 
 // eslint-disable-next-line no-unused-vars
@@ -315,6 +327,10 @@ footer {
   border-bottom: transparent;
 }
 
+.ant-card-header >>> .ant-badge-status-text {
+  margin-left: 0px;
+}
+
 .ant-pro-global-footer-links a {
   color: rgba(0, 0, 0, .45);
   transition: all .3s;
@@ -322,6 +338,20 @@ footer {
 
 .ant-pro-global-footer-links a:not(:last-child) {
   margin-right: 40px;
+}
+
+.header >>> .anticon-search {
+  background-color: #1990ff;
+  padding: 6px 15px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.header >>> .ant-input-affix-wrapper-lg {
+  width: 500px;
+  font-size: 20px;
+  border-radius: 50px;
 }
 
 @media (max-width: 640px) {
@@ -336,6 +366,10 @@ footer {
 
   .header-logo span {
     font-size: 25px;
+  }
+
+  .header >>> .ant-input-affix-wrapper-lg {
+    width: 90%;
   }
 }
 </style>

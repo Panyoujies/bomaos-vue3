@@ -28,11 +28,10 @@ export const REDIRECT_PATH = '/redirect';
 // 不需要登录的路由
 export const WHITE_LIST = [
     '/',
-    '/tools',
-    '/tools/base64',
-    '/tools/text',
-    '/tools/2fa',
-    '/tools/cdk',
+    '/base64',
+    '/text',
+    '/2fa',
+    '/cdk',
     '/login',
     '/register',
     '/forget'

@@ -27,7 +27,7 @@ export default {
     },
     navigation: {
       home: 'Site Nav',
-      tools: 'My Tool'
+      store: 'Store'
     },
     footer: {
       github: 'Support project',
