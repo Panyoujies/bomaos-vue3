@@ -221,10 +221,7 @@ const onUserDropClick = ({key}) => {
   if (key === 'password') {
     passwordVisible.value = true;
   } else if (key === 'profile') {
-    push({
-      name: 'user',
-      params: {id: loginUser.value.userId}
-    });
+    push('/user/info');
   } else if (key === 'logout') {
     // 退出登录
     Modal.confirm({

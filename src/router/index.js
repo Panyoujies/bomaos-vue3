@@ -26,11 +26,37 @@ const routes = [
         meta: {title: '波猫商店'}
     },
     {
-        path: '/user/:id',
+        path: '/user',
         name: 'user',
         component: () => import('@/views/user/index.vue'),
         meta: {title: '用户中心'},
-        props: true
+        redirect: '/user/info',
+        children: [
+            {
+                path: 'info',
+                name: 'info',
+                component: () => import('@/views/user/info/index.vue'),
+                meta: {title: '个人简介'}
+            },
+            {
+                path: 'wallet',
+                name: 'wallet',
+                component: () => import('@/views/user/wallet/index.vue'),
+                meta: {title: '我的钱包'}
+            },
+            {
+                path: 'orders',
+                name: 'orders',
+                component: () => import('@/views/user/orders/index.vue'),
+                meta: {title: '我的订单'}
+            },
+            {
+                path: 'edit',
+                name: 'edit',
+                component: () => import('@/views/user/edit/index.vue'),
+                meta: {title: '编辑资料'}
+            }
+        ]
     },
     {
         path: '/base64',

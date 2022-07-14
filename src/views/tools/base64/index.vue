@@ -22,8 +22,7 @@
 <script setup>
 import {ref} from "vue";
 import {message} from 'ant-design-vue';
-
-let jsBase64 = require('js-base64').Base64;
+import { Base64 } from 'js-base64';
 import useClipboard from 'vue-clipboard3';
 import { useI18n } from "vue-i18n";
 
@@ -44,7 +43,7 @@ const encodeBtn = () => {
   }
   loading.value = true;
   setTimeout(() => {
-    var encode = jsBase64.encode(value.value);
+    var encode = Base64.encode(value.value);
     parseContent.value = encode;
     isParse.value = true;
     loading.value = false;
@@ -59,7 +58,7 @@ const decodeBtn = () => {
   loadingDe.value = true;
   setTimeout(() => {
     try {
-      var decode = jsBase64.decode(value.value);
+      var decode = Base64.decode(value.value);
       parseContent.value = decode;
       isParse.value = true;
       loadingDe.value = false;

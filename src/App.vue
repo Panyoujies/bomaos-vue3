@@ -2,7 +2,9 @@
   <a-config-provider :locale="antLocale">
     <Header />
     <div class="container">
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
     <Footer />
   </a-config-provider>
