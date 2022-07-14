@@ -16,49 +16,56 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: () => import('@/views/home/index'),
+        component: () => import('@/views/home/index.vue'),
         meta: {title: '网址导航'}
     },
     {
         path: '/store',
         name: 'store',
-        component: () => import('@/views/store/index'),
+        component: () => import('@/views/store/index.vue'),
         meta: {title: '波猫商店'}
+    },
+    {
+        path: '/user/:id',
+        name: 'user',
+        component: () => import('@/views/user/index.vue'),
+        meta: {title: '用户中心'},
+        props: true
     },
     {
         path: '/base64',
         name: 'base64',
-        component: () => import('@/views/tools/base64/index'),
+        component: () => import('@/views/tools/base64/index.vue'),
         meta: {title: 'Base64 加密解密'},
     },
     {
         path: '/text',
         name: 'text',
-        component: () => import('@/views/tools/text/index'),
+        component: () => import('@/views/tools/text/index.vue'),
         meta: {title: '文本内容去重'},
     },
     {
         path: '/2fa',
         name: '2fa',
-        component: () => import('@/views/tools/2fa/index'),
+        component: () => import('@/views/tools/2fa/index.vue'),
         meta: {title: '2FA验证码获取'},
     },
     {
         path: '/cdk',
         name: 'cdk',
-        component: () => import('@/views/tools/cdk/index'),
+        component: () => import('@/views/tools/cdk/index.vue'),
         meta: {title: '卡密生成'},
     },
     {
         path: '/login',
         name: 'login',
-        component: () => import('@/views/login/index'),
+        component: () => import('@/views/login/index.vue'),
         meta: {title: '用户登录'}
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('@/views/register/index'),
+        component: () => import('@/views/register/index.vue'),
         meta: {title: '用户注册'}
     }
 ];
@@ -88,7 +95,7 @@ router.beforeEach(async (to, from) => {
         if (!WHITE_LIST.includes(to.path)) {
             return {
                 path: '/login',
-                query: to.path === '/home' ? {} : { from: to.path }
+                query: to.path === '/' ? {} : { from: to.path }
             };
         }
         return;

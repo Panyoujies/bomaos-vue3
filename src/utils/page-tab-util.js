@@ -1,6 +1,7 @@
 import router from '@/router';
 import { removeToken } from '@/utils/token-util';
-import { HOME_PATH, LAYOUT_PATH, API_BASE_URL, LOGIN_ROUTE } from '@/config/setting';
+import { HOME_PATH, LAYOUT_PATH, LOGIN_ROUTE } from '@/config/setting';
+import {useUserStore} from "@/store/modules/user";
 const HOME_ROUTE = HOME_PATH || LAYOUT_PATH;
 
 /**
@@ -37,18 +38,11 @@ export function goLoginRoute(from) {
 
 /**
  * 退出登录
- * @param route 是否使用路由跳转
  * @param from 登录后跳转的地址
  */
-export function logout(route, from) {
+export function logout(from) {
     removeToken();
-    if (route) {
-        router.push({
-            path: '/login',
-            query: from ? { from } : undefined
-        });
-    } else {
-        // 这样跳转避免再次登录重复注册动态路由
-        location.replace(API_BASE_URL + 'login' + (from ? '?from=' + from : ''));
-    }
+    const userStore = useUserStore();
+    userStore.info = null;
+    router.replace(from || LOGIN_ROUTE);
 }

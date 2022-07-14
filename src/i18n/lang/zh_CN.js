@@ -39,7 +39,7 @@ export default {
     footer: {
       github: '支持项目',
       connect: '联系作者',
-      state: '免责声明',
+      about: '关于我们',
       toolName: '值联工具'
     }
   },

@@ -16,7 +16,7 @@ export async function getDomains() {
  * 获取网址
  * @returns {Promise<*>}
  */
-export async function getClassifys() {
+export async function getClassifyList() {
     const res = await request.get('/home/getClassifyList');
     if (res.data.code === 0 && res.data.data) {
         return res.data.data;

@@ -1,7 +1,8 @@
 <template>
   <div class="login-wrapper">
     <div class="panfish">
-      <img :src="loginLogo" class="normal">
+      <img v-if="isLoginLogo" :src="loginLogoPassword" class="normal">
+      <img v-else :src="loginLogo" class="normal">
     </div>
     <a-form class="login-form bomao-bg-white">
       <h4>用户登录</h4>
@@ -9,6 +10,7 @@
         <a-input
             allow-clear
             size="large"
+            @mousedown.left="isLoginLogo = false"
             v-model:value="form.username"
             placeholder="用户名"
         >
@@ -20,6 +22,7 @@
       <a-form-item v-bind="validateInfos.password">
         <a-input-password
             size="large"
+            @mousedown.left="isLoginLogo = true"
             v-model:value="form.password"
             placeholder="密码"
         >
@@ -79,12 +82,15 @@ import {
   WeiboOutlined
 } from '@ant-design/icons-vue';
 import loginLogo from '@/assets/login.svg'
+import loginLogoPassword from '@/assets/login-password.svg'
 
 const {currentRoute} = useRouter();
 
 const useForm = Form.useForm;
 // 加载状态
 const loading = ref(false);
+
+const isLoginLogo = ref(false);
 // 表单数据
 const form = reactive({
   username: '',

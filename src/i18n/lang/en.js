@@ -32,7 +32,7 @@ export default {
     footer: {
       github: 'Support project',
       connect: 'Contact the developer',
-      state: 'Disclaimer',
+      about: 'About US',
       toolName: 'ZLian Tool'
     }
   },

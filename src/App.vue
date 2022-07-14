@@ -1,26 +1,22 @@
 <template>
   <a-config-provider :locale="antLocale">
-    <Header/>
+    <Header />
     <div class="container">
       <router-view/>
     </div>
-    <Footer/>
+    <Footer />
   </a-config-provider>
 </template>
 
 <script setup>
 import {useLocale} from '@/i18n/use-locale';
-import Header from "@/views/common/header";
-import Footer from "@/views/common/footer";
+import Header from "@/views/common/header/index.vue";
+import Footer from "@/views/common/footer/index.vue";
 const {antLocale} = useLocale();
 </script>
 
-<script>
-export default {
-  name: 'App'
-}
-</script>
-
 <style>
-
+p {
+  margin: 0;
+}
 </style>

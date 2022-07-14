@@ -11,9 +11,9 @@
           <qq-outlined/>
           {{ t('app.footer.connect') }}
         </a>
-        <a class="bomao-text-secondary" href="https://zdins.cn/" target="_blank">
-          <slack-square-filled/>
-          {{ t('app.footer.state') }}
+        <a class="bomao-text-secondary" @click="message.warning('关于我们待实现')">
+          <info-circle-filled />
+          {{ t('app.footer.about') }}
         </a>
       </a-space>
       <div class="bomao-text-secondary" style="margin-top: 8px">
@@ -24,12 +24,14 @@
 </template>
 <script setup>
 import {useI18n} from 'vue-i18n';
+import {message} from "ant-design-vue";
 const {t} = useI18n();
 import {
   GithubOutlined,
   QqOutlined,
-  SlackSquareFilled
+  InfoCircleFilled
 } from '@ant-design/icons-vue';
+
 </script>
 
 <script>
